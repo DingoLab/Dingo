@@ -1,0 +1,67 @@
+
+
+
+
+
+%  API.tex
+
+
+%%%
+%%% 项目的 API 
+%%%
+
+
+\documentclass[UTF8]{article}
+
+%%
+%% 导言区
+
+% 设置 CJK
+\usepackage{xeCJK}
+\setCJKmainfont{WenQuanYi Zen Hei}
+
+\usepackage{color}
+
+
+% 宏
+\def\apiintr{\paragraph{\colorbox[rgb]{0.78,0.7,0.65}{API 描述}}} % api 的描述
+\def\apiexc{\paragraph{\colorbox[rgb]{0.78,0.7,0.65}{API 输入激励}}} % api 输入的激励
+\def\apiresp{\paragraph{\colorbox[rgb]{0.78,0.7,0.65}{API 输出响应}}} % api 的输出响应
+\def\apiauth{\paragraph{\colorbox[rgb]{0.78,0.7,0.65}{API 身份验证}}} % api 的身份认证
+
+\def\authT{临时 Token}
+\def\authN{无，不验证}
+
+
+
+% 作者
+\author{ 李约瀚 \\ qinka@live.com \\ DingoLab \\ 14130140331 % 排版与记录 后端负责者
+    \and 乔新文 \\ ?? \\ DingoLab \\ ??                      % 主要API陈述 UWP 端负责者
+    \and 康赣鹏 \\ ?? \\ DingoLab \\ ??                      % 铲平经理 负责铲平
+    }
+    
+% 标题
+\title{Dingo API}
+
+
+
+\begin{document}
+    \maketitle
+    \newpage
+    \tableofcontents
+    \newpage
+    
+    %  API 部分
+    当前 API 版本 2016-04-16-讨论
+    \section{用户管理}
+    \subsection{用户注册}
+    \apiintr
+    \apiexc
+    \apiresp
+    \apiauth
+    
+    \section{任务管理（代收快递）}
+
+    \section{消息通告}
+\end{document}
+
