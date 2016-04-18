@@ -21,8 +21,12 @@
 \setCJKmainfont{WenQuanYi Zen Hei}
 
 \usepackage{color}
-\usepackage[colorlinks,linkcolor=blue,anchorcolor=blue,citecolor=red,bookmarksnumbered]{hyperref}
-
+\usepackage[bookmarks=true,colorlinks,linkcolor=blue,anchorcolor=blue,citecolor=red,bookmarksnumbered]{hyperref}
+% 附录
+\usepackage[titletoc]{appendix}
+\renewcommand\appendixname{附录}
+\renewcommand\appendixpagename{附录}
+\appendixtitleon
 
 % 宏
 \def\apiintr{\paragraph{\colorbox[rgb]{0.78,0.7,0.65}{API 描述}}} % api 的描述
@@ -52,9 +56,11 @@
 
 
 \begin{document}
+    \pdfbookmark[-2]{API文档}{title}
     \maketitle
     \newpage
-    \tableofcontents    \newpage
+    \tableofcontents
+    \newpage
     
     %  API 部分
     当前 API 版本 2016-04-16-讨论 \& 个人修改
@@ -358,7 +364,6 @@
         \hline 
     \end{tabular} 
     \apiresp
-    
     \成功 时返回的内容：\\
     \begin{tabular}{|c|c|c|c|}
         \hline \rule[-2ex]{0pt}{5.5ex} 参数名 & 说明 & 值的范围 & 备注 \\
@@ -377,6 +382,52 @@
     \end{tabular}
     \apiauth
     使用用户名，密码与临时Token验证。
+    \subsection{收货地址的增删改}
+    \apiintr
+    收货地址的删改。
+    \apiexc
+    增改的输入：\\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数说明 & 参数名 & 参数范围 & 可选性 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 省 & p & 文本 & 必填 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 市 & c & 文本 & 必填 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 区 & cc & 文本 & 必填 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 街道 & b & 文本 & 必填 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 小区 & v & 文本 & 必填 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 邮编 & zip & 文本 & 必填 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 地址编号 & aid & 合法的地址编号 & 选填 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 操作 & opt & 区分大小写的文本“AF” & 必填 \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\
+        \hline 
+    \end{tabular}
+    \par 删除的输入:\\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数说明 & 参数名 & 参数范围 & 可选性 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 地址编号 & aid & 合法的地址编号 & 必填 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 操作 & opt & 区分大小写的文本“DEL” & 必填 \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\
+        \hline 
+    \end{tabular}
+    \apiresp
+    \成功 时返回的内容：\\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数名 & 说明 & 值的范围 & 备注 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} STATUS & 请求状态 & \成功V &  \\ 
+        \hline \rule[-2ex]{0pt}{5.5ex} CONTEXT & 相关上下文 & 地址的编号 &  \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\ 
+        \hline 
+    \end{tabular} 
+    \par \失败 时返回的内容：\\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数名 & 说明 & 值的范围 & 备注 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} STATUS & 请求状态 & \失败V &  \\ 
+        \hline \rule[-2ex]{0pt}{5.5ex} CONTEXT & 相关上下文 & \失败原因 &  \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\ 
+        \hline 
+    \end{tabular}
+    \apiauth
+    使用 临时 Token 与 账户关联度进行验证。
+    
     \section{任务管理（代收快递）}
     \subsection{任务发布（代收快递）}
     \apiintr
@@ -466,6 +517,7 @@
     \end{tabular}
     \apiauth
     使用 临时Token 与 账户关联\footnote{是否为甲乙方，无关的内容视为无访问权限。}度验证。
+    \subsection{获取任务（代收快递）}
     \apiexc 输入： \\
     \begin{tabular}{|c|c|c|c|}
         \hline \rule[-2ex]{0pt}{5.5ex} 参数说明 & 参数名 & 参数范围 & 可选性 \\
@@ -499,10 +551,253 @@
         \hline \rule[-2ex]{0pt}{5.5ex} CONTEXT & 相关上下文 & \失败原因 &  \\
         %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\ 
         \hline
+    \end{tabular} 
     \apiauth
     使用 临时Token 与 账户关联度验证。
-    
+    \subsection{协商价格}
+    \apiintr
+    用于协商价格。
+    \apiexc
+    价格修改\footnote{并不修改价格，只是在实际价格上做加法，会有专门的数据记录价格变动。}的输入：\\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数说明 & 参数名 & 参数范围 & 可选性 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 任务id & tid & 合法的id & 必填 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 调整的价格 & d & 正负的以分为单位的整数 & 必填 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 是否继续 & c & 字符串 “True” 首字母大写 & 必填 \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\
+        \hline 
+    \end{tabular} 
+    \par 放弃当前“交易/协商”，停止议价并回到最初状态： \\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数说明 & 参数名 & 参数范围 & 可选性 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 任务id & tid & 合法的id & 必填 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 是否继续 & c & 字符串 “False” 首字母大写 & 必填 \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\
+        \hline 
+    \end{tabular} 
+    \apiresp
+    \成功 时返回的内容：\\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数名 & 说明 & 值的范围 & 备注 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} STATUS & 请求状态 & \成功V &  \\ 
+        \hline \rule[-2ex]{0pt}{5.5ex} CONTEXT & 相关上下文 & \空 &  \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\ 
+        \hline 
+    \end{tabular} 
+    \par \失败 时返回的内容：\\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数名 & 说明 & 值的范围 & 备注 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} STATUS & 请求状态 & \失败V &  \\ 
+        \hline \rule[-2ex]{0pt}{5.5ex} CONTEXT & 相关上下文 & \失败原因 &  \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\ 
+        \hline 
+    \end{tabular}
+    \apiauth
+    使用 临时 Token 与账户关联度认证。
+    \subsection{获取任务信息}
+    \apiintr
+    用于获取任务信息。
+    \apiexc
+    输入：\\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数说明 & 参数名 & 参数范围 & 可选性 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 任务id & id & 合法的任务id & 必填 \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\
+        \hline 
+    \end{tabular} 
+    \apiresp
+    \成功 时返回的内容：\\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数名 & 说明 & 值的范围 & 备注 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} STATUS & 请求状态 & \成功V &  \\ 
+        \hline \rule[-2ex]{0pt}{5.5ex} CONTEXT & 相关上下文 & 任务相关信息 &  \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\ 
+        \hline 
+    \end{tabular} 
+    \par 任务相关信息： \\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数说明 & 参数名 & 参数范围 & 备注 \\        \hline \rule[-2ex]{0pt}{5.5ex} 操作类型 & ct & FIX & 必填 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 任务id & tid & 合法的任务id &  \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 经度 & ew & $[-180^\circ,180^\circ]$ 其中正向为东 &  \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 纬度 & ns & $[-90^\circ,90^\circ]$ &  \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 范围 & r & 有效以米为单位的浮点数 &  \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 快递的类别 & typ & ?? & \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 快递的重量 & wei & 以千克为单位的浮点数 &  \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 快递的尺寸 & size & 三元组 $(x,y,z)$ 表示长宽高 &  \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 注意事项 & note & 文本 &  \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 价格 & cost & 以人民币中分为单位的整数 &  \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 甲方价格修正 & costA & 以人民币中分为单位的整数的数组 &  \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 乙方价格修正 & costB & 以人民币中分为单位的整数的数组 &  \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 描述 & intr & 文本 & 选填 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 关联的甲方 & linkedA & 有效的用户id &  \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 关联的乙方 & linkedB & 有效的用户id &  \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\
+        \hline 
+    \end{tabular} 
+    \par \失败 时返回的内容：\\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数名 & 说明 & 值的范围 & 备注 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} STATUS & 请求状态 & \失败V &  \\ 
+        \hline \rule[-2ex]{0pt}{5.5ex} CONTEXT & 相关上下文 & \失败原因 &  \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\ 
+        \hline 
+    \end{tabular}
+    \apiauth
+    使用 临时Token 与 账号关联度 验证
+    \subsection{支付与确认}
+    \apiintr
+    用户双方的支付与确认。
+    \apiexc
+    输入信息：\\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数说明 & 参数名 & 参数范围 & 可选性 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 任务编号 & tid & 合法的任务编号 & 必填 \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\
+        \hline 
+    \end{tabular}
+    \apiresp
+    \成功 时返回的内容：\\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数名 & 说明 & 值的范围 & 备注 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} STATUS & 请求状态 & \成功V &  \\ 
+        \hline \rule[-2ex]{0pt}{5.5ex} CONTEXT & 相关上下文 & \空 &  \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\ 
+        \hline 
+    \end{tabular} 
+    \par \失败 时返回的内容：\\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数名 & 说明 & 值的范围 & 备注 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} STATUS & 请求状态 & \失败V &  \\ 
+        \hline \rule[-2ex]{0pt}{5.5ex} CONTEXT & 相关上下文 & \失败原因 &  \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\ 
+        \hline 
+    \end{tabular}
+    \apiauth
+    使用 临时Token 与 账户关联度 来验证。
+    \subsection{可代收状态的增改}
+    \apiintr
+    用于增加与修改“可代收状态”。
+    \apiexc
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数说明 & 参数名 & 参数范围 & 可选性 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 代收任务编号 & did & 合法的代收任务编号 & 选填，若无则创建新的代收 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 代收描述 & dd & 文本 & 必填 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 经度 & ew & $[-180^\circ,180^\circ]$ 其中正向为东 & 必填 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 纬度 & ns & $[-90^\circ,90^\circ]$ & 必填 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 范围 & r & 有效以米为单位的浮点数 & 必填 \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\
+        \hline 
+    \end{tabular}
+    \apiresp
+    \成功 时返回的内容：\\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数名 & 说明 & 值的范围 & 备注 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} STATUS & 请求状态 & \成功V &  \\ 
+        \hline \rule[-2ex]{0pt}{5.5ex} CONTEXT & 相关上下文 & 代收状态编号 &  \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\ 
+        \hline 
+    \end{tabular} 
+    \par \失败 时返回的内容：\\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数名 & 说明 & 值的范围 & 备注 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} STATUS & 请求状态 & \失败V &  \\ 
+        \hline \rule[-2ex]{0pt}{5.5ex} CONTEXT & 相关上下文 & \失败原因 &  \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\ 
+        \hline 
+    \end{tabular}
+    \apiauth
+    临时 Token 验证。
+    \subsection{可代收状态的删与完}
+    \apiintr
+    用于可查询状态的删除与“执行”。
+    \apiexc
+    删除时的输入：\\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数说明 & 参数名 & 参数范围 & 可选性 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 删除的代收状态号 & did & 合法的代收状态号 & 必填 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 操作 & opt & 区分大小写的字符串“DEL” & 必填 \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\
+        \hline 
+    \end{tabular} 
+    \par 完成的输入： \\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数说明 & 参数名 & 参数范围 & 可选性 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 删除的代收状态号 & did & 合法的代收状态号 & 必填 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 操作 & opt & 区分大小写的字符串“FIN” & 必填 \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\
+        \hline 
+    \end{tabular} 
+    \apiresp
+    返回的内容：\\
+    \成功 时返回的内容：\\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数名 & 说明 & 值的范围 & 备注 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} STATUS & 请求状态 & \成功V &  \\ 
+        \hline \rule[-2ex]{0pt}{5.5ex} CONTEXT & 相关上下文 & \空 &  \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\ 
+        \hline 
+    \end{tabular} 
+    \par \失败 时返回的内容：\\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数名 & 说明 & 值的范围 & 备注 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} STATUS & 请求状态 & \失败V &  \\ 
+        \hline \rule[-2ex]{0pt}{5.5ex} CONTEXT & 相关上下文 & \失败原因 &  \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\ 
+        \hline 
+    \end{tabular}
+    \apiauth
+    使用 临时Token 与账号相关度验证。
+    \subsection{克代收状态查询}
+    \apiintr
+    查询当前的可代收双胎。
+    \apiexc
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数说明 & 参数名 & 参数范围 & 可选性 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 经度 & ew & $[-180^\circ,180^\circ]$ 其中正向为东 & 必填 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 纬度 & ns & $[-90^\circ,90^\circ]$ 其中以北为正向 & 必填 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 范围 & r & 有效以米为单位的浮点数 & 必填 \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\
+        \hline 
+    \end{tabular}
+    \apiresp
+    返回的内容：\\
+    \成功 时返回的内容：\\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数名 & 说明 & 值的范围 & 备注 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} STATUS & 请求状态 & \成功V &  \\ 
+        \hline \rule[-2ex]{0pt}{5.5ex} CONTEXT & 相关上下文 & 代收信息 &  \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\ 
+        \hline 
+    \end{tabular} 
+    \par 代收信息: \\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数名 & 说明 & 值的范围 & 备注 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} dd & 代收描述 &  &  \\
+        \hline \rule[-2ex]{0pt}{5.5ex} ew & 经度 & $[-180^\circ,180^\circ]$ 其中正向为东 &  \\
+        \hline \rule[-2ex]{0pt}{5.5ex} ns & 纬度 & $[-90^\circ,90^\circ]$ 其中以北为正向 &  \\
+        \hline \rule[-2ex]{0pt}{5.5ex} r & 范围 & 有效以米为单位的浮点数 &  \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\
+        \hline 
+    \end{tabular} 
+    \par \失败 时返回的内容：\\
+    \begin{tabular}{|c|c|c|c|}
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数名 & 说明 & 值的范围 & 备注 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} STATUS & 请求状态 & \失败V &  \\ 
+        \hline \rule[-2ex]{0pt}{5.5ex} CONTEXT & 相关上下文 & \失败原因 &  \\
+        %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\ 
+        \hline 
+    \end{tabular}
+    \apiauth
+    通过 临时Token 验证。
     \section{消息通告}
+    \subsection{消息通告}
+    使用 TCP 链接。
+    \newpage
+    \begin{appendices}
+        \section{常用变量说明}
+        是
+    \end{appendices}
+    
 \end{document}
 
 %\begin{tabular}{|c|c|c|c|}
