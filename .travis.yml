@@ -2,7 +2,7 @@
 
 before_install:
   # 安装 XeTeX
-  - "sudo apt-get update && sudo apt-get install -y texlive-xetex texlive-xcolor texlive-fonts-recommended texlive-latex-extra lmodern texlive-latex-recommended"
+  - "sudo apt-get update && sudo apt-get install -y --no-install-recommends texlive-xetex latex-xcolor texlive-fonts-recommended texlive-latex-extra lmodern texlive-latex-recommended" 
   - "sudo apt-get install ttf-wqy-microhei ttf-wqy-zenhei"
   
 script: # 重要的东西编译三遍
