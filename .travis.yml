@@ -1,0 +1,29 @@
+# To build what is need
+
+before_install:
+  # 安装 XeTeX
+  - "sudo apt-get update && sudo apt-get install -y texlive-xetex texlive-xcolor texlive-fonts-recommended texlive-latex-extra lmodern texlive-latex-recommended"
+  - "sudo apt-get install ttf-wqy-microhei ttf-wqy-zenhei"
+  
+script: # 重要的东西编译三遍
+  - xelatex API.tex
+  - xelatex API.tex
+  - xelatex API.tex
+  - echo "DONE"
+  
+after_success: |
+  if [ -n "$GITHUB_API_KEY" ]; then
+    git config --global user.name "travis_auto"
+    git config --global user.email "qinka@live.com"
+    cd ~
+    git clone https://qinka:$GITHUB_API_KEY@github.com/DingoLab/DingoRelease.git
+    cd DingoRelease
+    export RELPATH=$(pwd)
+    cp "$TRAVIS_BUILD_DIR"/*.pdf .
+    git add .
+    git commit -am"travis-ci $(date)"
+    git push origin master
+    cd ~
+    sudo rm -rf $RELPATH
+    cd "$TRAVIS_BUILD_DIR"
+  fi
