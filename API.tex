@@ -35,7 +35,7 @@
 \appendixtitleon
 
 % 宏
-\def\version{0.0.1.30}
+\def\version{0.0.1.35}
 
 \def\apiintr{\paragraph{\colorbox[rgb]{1.0,0.6,0.65}{API 描述}}} % api 的描述
 \def\apiexc{\paragraph{\colorbox[rgb]{1,0.85,0.45}{API 输入激励}}} % api 输入的激励
@@ -57,8 +57,8 @@
 
 % 作者
 \author{ 李约瀚 \\ qinka@live.com \\ DingoLab \\ 14130140331 % 排版与记录 后端负责者
-    \and 乔新文 \\ ?? \\ DingoLab \\ ??                      % 主要API陈述 UWP 端负责者
-    \and 康赣鹏 \\ ?? \\ DingoLab \\ ??                      % 铲平经理 负责铲平
+    \and 乔新文 \\ starsriver@outlook.com \\ DingoLab \\ 14130140393 % 主要API陈述 UWP 端负责者
+    \and 康赣鹏 \\ ganpengkang@gmail.com \\ DingoLab \\ 1413014337 % 铲平经理 负责铲平
     }
     
 % 标题
@@ -492,7 +492,6 @@
         \hline \rule[-2ex]{0pt}{5.5ex} 经度 & ew & $[-180^\circ,180^\circ]$ 其中正向为东 & 必填 \\
         \hline \rule[-2ex]{0pt}{5.5ex} 纬度 & ns & $[-90^\circ,90^\circ]$ & 必填 \\
         \hline \rule[-2ex]{0pt}{5.5ex} 范围 & r & 有效以米为单位的浮点数 & 必填 \\
-        \hline \rule[-2ex]{0pt}{5.5ex} 快递的类别 & typ & ?? & 必填 \\
         \hline \rule[-2ex]{0pt}{5.5ex} 快递的重量 & wei & 以千克为单位的浮点数 & 必填 \\
         \hline \rule[-2ex]{0pt}{5.5ex} 快递的尺寸 & size & 三元组 $(x,y,z)$ 表示长宽高 & 必填 \\
         \hline \rule[-2ex]{0pt}{5.5ex} 注意事项 & note & 文本 & 选填 \\
@@ -541,7 +540,6 @@
         \hline \rule[-2ex]{0pt}{5.5ex} 经度 & ew & $[-180^\circ,180^\circ]$ 其中正向为东 & 必填 \\
         \hline \rule[-2ex]{0pt}{5.5ex} 纬度 & ns & $[-90^\circ,90^\circ]$ & 必填 \\
         \hline \rule[-2ex]{0pt}{5.5ex} 范围 & r & 有效以米为单位的浮点数 & 必填 \\
-        \hline \rule[-2ex]{0pt}{5.5ex} 快递的类别 & typ & ?? & 必填 \\
         \hline \rule[-2ex]{0pt}{5.5ex} 快递的重量 & wei & 以千克为单位的浮点数 & 必填 \\
         \hline \rule[-2ex]{0pt}{5.5ex} 快递的尺寸 & size & 三元组 $(x,y,z)$ 表示长宽高 & 必填 \\
         \hline \rule[-2ex]{0pt}{5.5ex} 注意事项 & note & 文本 & 选填 \\
@@ -674,7 +672,6 @@
         \hline \rule[-2ex]{0pt}{5.5ex} 经度 & ew & $[-180^\circ,180^\circ]$ 其中正向为东 &  \\
         \hline \rule[-2ex]{0pt}{5.5ex} 纬度 & ns & $[-90^\circ,90^\circ]$ &  \\
         \hline \rule[-2ex]{0pt}{5.5ex} 范围 & r & 有效以米为单位的浮点数 &  \\
-        \hline \rule[-2ex]{0pt}{5.5ex} 快递的类别 & typ & ?? & \\
         \hline \rule[-2ex]{0pt}{5.5ex} 快递的重量 & wei & 以千克为单位的浮点数 &  \\
         \hline \rule[-2ex]{0pt}{5.5ex} 快递的尺寸 & size & 三元组 $(x,y,z)$ 表示长宽高 &  \\
         \hline \rule[-2ex]{0pt}{5.5ex} 注意事项 & note & 文本 &  \\
@@ -949,10 +946,6 @@
             \参数名{r}
             \说明 划分一个范围。
             \范围 以米为单位的浮点数。
-        \subsection{快递类型}
-            \参数名{typ}
-            \说明 ？
-            \范围 ？
         \subsection{快递的重量}
             \参数名{wei}
             \说明 说明快递的重量
