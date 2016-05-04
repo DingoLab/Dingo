@@ -11,14 +11,10 @@
 %%%
 
 
-\documentclass[UTF8]{article}
+\documentclass[UTF8]{dingo}
 
 %%
-%% 导言区
-\usepackage{color}
-\usepackage[colorlinks,linkcolor=blue,anchorcolor=blue,citecolor=red,bookmarksnumbered]{hyperref}
-\hypersetup{pdftitle=Dingo API Document}
-\hypersetup{pdfauthor=李约瀚 乔新文 康赣鹏}
+
 
 \usepackage{datetime}
 \usepackage{graphicx}
@@ -35,7 +31,6 @@
 \appendixtitleon
 
 % 宏
-\def\version{0.0.1.35}
 
 \def\apiintr{\paragraph{\colorbox[rgb]{1.0,0.6,0.65}{API 描述}}} % api 的描述
 \def\apiexc{\paragraph{\colorbox[rgb]{1,0.85,0.45}{API 输入激励}}} % api 输入的激励
@@ -61,52 +56,20 @@
     \and 康赣鹏 \\ ganpengkang@gmail.com \\ DingoLab \\ 1413014337 % 铲平经理 负责铲平
     }
     
+%颜色
+\definecolor{cb}{rgb}{0,0.55,0.55}
+\definecolor{cf}{rgb}{0.9,0.9,0.9}
+    
 % 标题
-\title{\Huge Dingo API Document}
-
-% 时间设置
-\newdateformat{mydate}{\monthname[\THEMONTH],\THEYEAR}%
-\newdateformat{mdydate}{\monthname[\THEMONTH] \ordinaldate{\THEDAY} \THEYEAR}%
-\date{\mdydate\today}
+\title{API Document}
+\titlebgcolor{cb}
+\titlefontcolor{cf}
+\coverpic{Dingo-B}
+\city{西安}
+\version{0.0.2.40}
 
 \begin{document}
-    \pdfbookmark[0]{Dingo API Document}{}
-    %封面
-    \pdfbookmark[1]{封面}{page:cover}
-    \thispagestyle{empty} 
-    {
-    \label{page:cover}
-    \hspace*{-10em} 
-    \begin{wrapfigure}{l}[3em]{5.5cm}
-        \includegraphics[width=5.5cm]{./Dingo-A}
-    \end{wrapfigure}
-    \begin{center}
-        \vspace*{5em}
-        {\hspace*{13em}\fontsize{90pt}{99pt}\selectfont Dingo}
-    \end{center}
-    \begin{center}
-        \vspace*{2em}
-        {\Huge API Document}
-    \end{center}
-    \vfill
-    \begin{flushright}
-        {\huge DingoLab}
-    \end{flushright}
-    \begin{flushright}
-        {\Large \mydate\today}
-    \end{flushright}
-    }
-    \pdfbookmark[1]{扉页}{page:title}
-    % 扉页
-    \label{page:title}
-    \maketitle
-    \thispagestyle{empty} 
-    \vfill
-    \begin{center}
-        Version \version\\
-        Copyright (C) 2016 DingoLab
-    \end{center}
-    \newpage
+    \makecover
     \label{page:contents}
     \pdfbookmark[1]{目录}{page:contents}
     \pagenumbering{roman}
@@ -870,7 +833,7 @@
             \说明 返回内容中核心的数据——相关上下文。细节请参考 附录B 中的内容。
             \范围 “任何” 合法的数据。
         \subsection{相关上下文位置}
-            \参数名{CONTEXTWHERE}
+            \参数名{CONTEXT-WHERE}
             \说明 指明相关上下文的位置。
             \范围 具体细节需要参考 附录B 中的内容。
         \subsection{用户电话}
@@ -993,6 +956,10 @@
         %    \说明
         %    \范围
         \section{返回数据的实际组织方式}
+        实际的数据组织方式相对较为复杂。首先返回的HTTP报文中头部将会有一个字段——“STATUS”，
+        这个字段中会有两种取值 “SUCCESS” 与 “FAILED” 分别代表成功与失败。然后会有一个字段——
+        “CONTEXT-WHERE”，这个字段表明了返回数据的位置，取值或为“BODY”，或为“HEAD”，或为“OTH”
+        。通常需要API实现约定好，同时有时会出现同时出现在多个地方的情况。
     \end{appendices}
     
 \end{document}
