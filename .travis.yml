@@ -2,11 +2,11 @@
 
 before_install:
   # 安装 XeTeX
-  - "sudo apt-get update && sudo apt-get install -y --no-install-recommends wget texlive-xetex latex-xcolor texlive-fonts-recommended texlive-latex-extra lmodern texlive-latex-recommended" 
+  - "sudo apt-get update && sudo apt-get install -y --no-install-recommends wget texlive-base texlive-xetex latex-xcolor texlive-fonts-recommended texlive-latex-extra lmodern texlive-latex-recommended" 
   - "sudo apt-get install ttf-wqy-microhei ttf-wqy-zenhei"
   
 script: # 重要的东西编译三遍
-  - sudo tlmgr remove geometry
+  - tlmgr remove geometry
   - tlmgr update
   - tlmgr install geometry
   - wget https://raw.githubusercontent.com/DingoLab/dingo.tex/master/dingo.cls
