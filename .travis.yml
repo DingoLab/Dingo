@@ -7,7 +7,7 @@ before_install:
   
 script: # 重要的东西编译三遍
   - uname -a
-  - tlmgr remove geometry
+  - /sbin/tlmgr remove geometry
   - tlmgr update
   - tlmgr install geometry
   - wget https://raw.githubusercontent.com/DingoLab/dingo.tex/master/dingo.cls
