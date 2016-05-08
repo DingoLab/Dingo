@@ -6,11 +6,9 @@ before_install:
   - "sudo apt-get install ttf-wqy-microhei ttf-wqy-zenhei"
   
 script: # 重要的东西编译三遍
-  - uname -a
-  - tlmgr remove geometry
-  - tlmgr update
-  - tlmgr install geometry
   - wget https://raw.githubusercontent.com/DingoLab/dingo.tex/master/dingo.cls
+  - wget https://raw.githubusercontent.com/DingoLab/dingo.tex/master/geometry.sty
+  - wget https://raw.githubusercontent.com/DingoLab/dingo.tex/master/geometry.cfg
   - xelatex API.tex
   - xelatex API.tex
   - xelatex API.tex
