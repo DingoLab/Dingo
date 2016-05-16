@@ -2,9 +2,9 @@
 
 before_install:
   # 安装 XeTeX
-  - "sudo apt-get update && sudo apt-get install -y --no-install-recommends wget texlive-base texlive-xetex latex-xcolor texlive-fonts-recommended texlive-latex-extra lmodern texlive-latex-recommended" 
+  - "sudo apt-get update && sudo apt-get install -y --no-install-recommends wget texlive-base texlive-xetex latex-xcolor texlive-fonts-recommended texlive-latex-extra lmodern texlive-latex-recommended"
   - "sudo apt-get install ttf-wqy-microhei ttf-wqy-zenhei"
-  
+
 script: # 重要的东西编译三遍
   - wget https://raw.githubusercontent.com/DingoLab/dingo.tex/master/dingo.cls
   - wget https://raw.githubusercontent.com/DingoLab/dingo.tex/master/geometry.sty
@@ -12,8 +12,11 @@ script: # 重要的东西编译三遍
   - xelatex API.tex
   - xelatex API.tex
   - xelatex API.tex
+  - xelatex Plan.tex
+  - xelatex Plan.tex
+  - xelatex Plan.tex
   - echo "DONE"
-  
+
 after_success: |
   if [ -n "$GITHUB_API_KEY" ]; then
     git config --global user.name "travis_auto"

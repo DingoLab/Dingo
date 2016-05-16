@@ -1,0 +1,80 @@
+\documentclass[UTF8]{dingo}
+
+\author{康赣鹏 \\ DingoLab \\ganpengkang@gmail.com}
+\definecolor{cb}{rgb}{1.00,0.50,0.50}
+\definecolor{cf}{rgb}{1,1,1}
+\title{Dingo 项目计划书}
+\titlebgcolor{cb}
+\titlefontcolor{cf}
+\coverpic{Dingo-B}
+\city{西安}
+\version{0.1.0.0}
+\begin{document}
+  \makecover
+  \makecontents
+  \section{项目背景}
+  随着网购逐渐的渗透于我们的生活，快递也成为我们生活必不可少的一部分。快递方便快捷，为我们的生活减轻了不少负担。然而在许多地区，因为各种各样的原因，快递还是不能实现把商品直达家庭的目标。存在着“最后一公里”，这与快递这种服务诞生的理念相悖。
+  \section{国内外市场分析}
+  根据我的调查，在中国的大部分高校。因为快递的种类繁杂，人员众多，以及宿舍的集体生活，大部分快递都选择在学校租赁一个快递集散地，让学生自取。这造成一种现象就是：每当下课铃响后，学校的两个地方就会挤满人，一个是饭堂，一个就是快递集散地。将宿舍和快递集散地这段路程利用起来非常有必要。
+
+  还有，在中国的大部分农村，手机通讯，网络的搭建已经开始普及了，但运输快递的网络雏形还没有出现。大部分的村子，想要领取快递必须到附近的镇子上，耗时长还费劲。快递公司若要拓展这部分市场，必须投入大量人力物力，还很难收回成本。这时候，我们可以利用的就是人民自身的力量，填补这部分市场的空缺。
+
+  在国外，许多地广人稀的地方通过类似于快递集散地的驿站，快递的最后一公里还是得客户去消化。这证明，无论是在国内还是国外，“最后一公里”得问题还是没有得到有效得解决，这部分市场的空间很大。
+
+  \section{项目主要开发和建设内容}
+    \subsection{项目目标}
+    用户通过我们提供app软件客户端，可查看是否有人在快递集散地，并通过我们的软件协商实现交易，消费掉这最后一公里。
+    \subsection{开发任务}
+    通过的app客户端实现
+    \begin{description}
+      \item[用户管理] 储存用户信息，用户可通过客户端实现信息管理
+      \item[任务管理] 软件主要实现的功能，我们的项目目标
+      \item[消息通告] 用户通过这个功能实现人人交互
+    \end{description}
+  \section{项目实施的技术方案}
+    \subsection{具体的任务需求}
+      \begin{itemize}
+        \item 用户注册及用户管理
+        \item 用户通过软件呼叫，实现搭载其他用户自行车帮忙携带快递的目的，费用由二者商议决定
+        \item 设置账号等级及评价体系
+        \item 用户间的信息交流
+        \item 与快递公司和地方商家合作\footnote{更高一阶段的目标}
+      \end{itemize}
+    \subsection{前后端API调用的具体实现}
+      \subsubsection{用户管理}
+        \begin{itemize}
+          \item 用户注册
+          \item 用户认证
+          \item 查询认证状态
+          \item 用户登入
+          \item 用户登出
+          \item 查询用户信息
+          \item 获取用户的头像
+          \item 用户信息修改
+          \item 修改密码
+          \item 收货地址增删改
+        \end{itemize}
+      \subsubsection{任务管理（代收快递）}
+        \begin{itemize}
+          \item 任务发布
+          \item 任务的删改
+          \item 获取任务
+          \item 协商价格
+          \item 获取任务信息
+          \item 支付与确认
+          \item 可代收状态的增改
+          \item 可代收状态的删除与完成
+          \item 可代收状态查询
+        \end{itemize}
+      \subsubsection{消息通告}
+        代替轮询。
+  \section{项目实施情况}
+    人员分配，总共有四名，分别担任：
+    \begin{itemize}
+      \item 项目负责人兼产品经理
+      \item 后端工程师
+      \item 前端工程师
+      \item 软件测试师
+    \end{itemize}
+    \subsection{项目完成情况}
+\end{document}
