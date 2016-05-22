@@ -1,5 +1,7 @@
 # To build what is need
 
+sudo: required
+dist: trusty
 before_install:
   # 安装 XeTeX
   - sudo apt-get install -y --no-install-recommends wget texlive-base texlive-xetex latex-xcolor
