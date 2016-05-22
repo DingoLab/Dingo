@@ -16,8 +16,6 @@ before_install:
 
 script: # 重要的东西编译三遍
   - wget https://raw.githubusercontent.com/DingoLab/dingo.tex/master/dingo.cls
-  - wget https://raw.githubusercontent.com/DingoLab/dingo.tex/master/geometry.sty
-  - wget https://raw.githubusercontent.com/DingoLab/dingo.tex/master/geometry.cfg
   - xelatex API.tex
   - xelatex API.tex
   - xelatex API.tex
