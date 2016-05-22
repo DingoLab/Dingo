@@ -2,8 +2,14 @@
 
 before_install:
   # 安装 XeTeX
-  - "sudo apt-get update && sudo apt-get install -y --no-install-recommends wget texlive-base texlive-xetex latex-xcolor texlive-fonts-recommended texlive-latex-extra lmodern texlive-latex-recommended"
-  - "sudo apt-get install ttf-wqy-microhei ttf-wqy-zenhei"
+  - sudo apt-get install -y --no-install-recommends wget texlive-base texlive-xetex latex-xcolor
+  - sudo apt-get install -y --no-install-recommends texlive-fonts-recommended texlive-latex-extra lmodern texlive-latex-recommen
+  - cd ~ && mkdir texmf
+  - tlmgr init-usertree
+  - sudo tlmgr update --all
+  - sudo tlmgr install ctex l3kernel xecjk l3packages latex
+  - sudo tlmgr install geometry fontspec fandol ulem zhnumber
+  - cd $TRAVIS_BUILD_DIR
 
 script: # 重要的东西编译三遍
   - wget https://raw.githubusercontent.com/DingoLab/dingo.tex/master/dingo.cls
