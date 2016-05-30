@@ -49,7 +49,7 @@
 % 作者
 \author{ 李约瀚 \\ qinka@live.com \\ DingoLab \\ 14130140331 % 排版与记录 后端负责者
     \and 乔新文 \\ starsriver@outlook.com \\ DingoLab \\ 14130140393 % 主要API陈述 UWP 端负责者
-    \and 康赣鹏 \\ ganpengkang@gmail.com \\ DingoLab \\ 1413014337 % 铲平经理 负责铲平
+    \and 康赣鹏 \\ ganpengkang@gmail.com \\ DingoLab \\ 14130140337 % 铲平经理 负责铲平
     }
 
 %颜色
@@ -62,7 +62,7 @@
 \titlefontcolor{cf}
 \coverpic{Dingo-B}
 \city{西安}
-\version{0.0.2.40}
+\version{0.0.3.10}
 
 \begin{document}
     \makecover
@@ -468,8 +468,8 @@
     \apiauth
     使用 临时 Token 与 账户关联度进行验证。
 
-    \section{任务管理（代收快递）}
-    \subsection{任务发布（代收快递）}
+    \section{任务管理}
+    \subsection{任务发布}
     \apiintr
     发布找人代收快递的内容。
     \apiexc
@@ -555,7 +555,7 @@
     \end{tabular}
     \apiauth
     使用 临时Token 与 账户关联\footnote{是否为甲乙方，无关的内容视为无访问权限。}度验证。
-    \subsection{获取任务（代收快递）}
+    \subsection{获取任务}
     \apiexc 输入： \\
     \begin{tabular}{|c|c|c|c|}
         \hline \rule[-2ex]{0pt}{5.5ex} 参数说明 & 参数名 & 参数范围 & 可选性 \\
@@ -639,7 +639,7 @@
     输入：\\
     \begin{tabular}{|c|c|c|c|}
         \hline \rule[-2ex]{0pt}{5.5ex} 参数说明 & 参数名 & 参数范围 & 可选性 \\
-        \hline \rule[-2ex]{0pt}{5.5ex} 任务id & id & 合法的任务id & 必填 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 任务id & tid & 合法的任务id & 必填 \\
         %\hline \rule[-2ex]{0pt}{5.5ex}  &  &  &  \\
         \hline
     \end{tabular}
@@ -654,7 +654,7 @@
     \end{tabular}
     \par 任务相关信息： \\
     \begin{tabular}{|c|c|c|c|}
-        \hline \rule[-2ex]{0pt}{5.5ex} 参数说明 & 参数名 & 参数范围 & 备注 \\        \hline \rule[-2ex]{0pt}{5.5ex} 操作类型 & ct & FIX & 必填 \\
+        \hline \rule[-2ex]{0pt}{5.5ex} 参数说明 & 参数名 & 参数范围 & 备注 \\ 
         \hline \rule[-2ex]{0pt}{5.5ex} 任务id & tid & 合法的任务id &  \\
         \hline \rule[-2ex]{0pt}{5.5ex} 经度 & ew & $[-180^\circ,180^\circ]$ 其中正向为东 &  \\
         \hline \rule[-2ex]{0pt}{5.5ex} 纬度 & ns & $[-90^\circ,90^\circ]$ &  \\
@@ -785,7 +785,7 @@
     \end{tabular}
     \apiauth
     使用 临时Token 与账号相关度验证。
-    \subsection{克代收状态查询}
+    \subsection{可代收状态查询}
     \apiintr
     查询当前的可代收双胎。
     \apiexc
@@ -829,7 +829,7 @@
     通过 临时Token 验证。
     \section{消息通告}
     \subsection{消息通告}
-    使用 TCP 链接。
+    使用 WebSocket 进行查询。
     \newpage
     \begin{appendices}
         \section{常用变量说明}
@@ -837,13 +837,13 @@
             \参数名{name}
             \说明 用于标识用户的标识符之一。
             \范围 合法的字符串，包括 大小写的英文字母、数字\footnote{不用于开头}与下划线。
-        \subsection{密码散列值(注册用)}
+        \subsection{密码散列值}
             \参数名{pash}
             \说明 注册用的密码散列值，使用的是 SHA256 算法，不包含时间戳。登陆用的包含时间戳，
             并使用 SHA384 算法。登陆时特定前缀，密码散列值与时间戳拼接后在进行散列。
             \范围 64位或者96位长度的字符串，由数字$0\sim9$与部分小写字母$a\sim f$组成的
             十六进制表示散列值。
-        \subsection{返回状态(STATUS)}
+        \subsection{返回状态}
             \参数名{STATUS}
             \说明 确定每个HTTP请求的响应状态。其中一般成功想要的返回的状态的编码
             \footnote{这里的编码是指HTTP响应的状态编码。}是 200。'
@@ -852,7 +852,7 @@
             或者是标准的三位的状态码。其中具体的返回内容组织形式，需要阅读 附录B。
             \范围 一共两种状态， “SUCCESS” 与 “FAIL” 。前者表示成功，后者笼统地表示错误，
             具体错误需要检查相关上下文中返回的数据。
-        \subsection{相关上下文(CONTEXT)}
+        \subsection{相关上下文}
             \参数名{CONTEXT}
             \说明 返回内容中核心的数据——相关上下文。细节请参考 附录B 中的内容。
             \范围 “任何” 合法的数据。
